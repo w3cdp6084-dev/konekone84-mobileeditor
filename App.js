@@ -2,12 +2,59 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from './src/screens/HomeScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
 const Tab = createBottomTabNavigator();
+const HomeStack = createStackNavigator();
+const SettingsStack = createStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{
+          headerRight: () => (
+            <Ionicons 
+              name="ellipsis-vertical" 
+              size={24} 
+              color="black" 
+              onPress={() => console.log('Menu button pressed')} 
+              style={{ marginRight: 15 }}
+            />
+          ),
+        }}
+      />
+    </HomeStack.Navigator>
+  );
+}
+
+function SettingsStackScreen() {
+  return (
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen 
+        name="Settings" 
+        component={SettingsScreen} 
+        options={{
+          headerRight: () => (
+            <Ionicons 
+              name="ellipsis-vertical" 
+              size={24} 
+              color="black" 
+              onPress={() => console.log('Menu button pressed')} 
+              style={{ marginRight: 15 }}
+            />
+          ),
+        }}
+      />
+    </SettingsStack.Navigator>
+  );
+}
 
 function MyTabs() {
   return (
@@ -33,8 +80,8 @@ function MyTabs() {
         inactiveTintColor: 'gray',
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Home" component={HomeStackScreen} />
+      <Tab.Screen name="Settings" component={SettingsStackScreen} />
     </Tab.Navigator>
   );
 }
